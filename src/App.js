@@ -10,11 +10,16 @@ function App() {
   };
 
   const startClick = () => {
-    setStopWatchId(setInterval(countUp, 1000));
+    if (stopWatchId === null) {
+      setStopWatchId(setInterval(countUp, 1000));
+    }
   };
 
   const stopClick = () => {
-    setStopWatchId(clearInterval(stopWatchId));
+    if (stopWatchId !== null) {
+      clearInterval(stopWatchId);
+      setStopWatchId(null);
+    }
   };
 
   const resetClick = () => {
