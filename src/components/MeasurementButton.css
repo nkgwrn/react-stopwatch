@@ -1,7 +1,13 @@
 button {
-  opacity: 0.7;
+  opacity: 0.6;
   pointer-events: none;
+  background-color: #ffe0cb;
+  color: #445680;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
 }
+
 button.is-active {
   opacity: 1;
   pointer-events: auto;
