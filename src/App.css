@@ -1,0 +1,28 @@
+.App {
+  width: 500px;
+  margin: 0 auto;
+  background-color: #445680;
+  color: #ffe0cb;
+  padding: 50px;
+}
+
+.App__head {
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.App__head span {
+  display: inline-block;
+  width: 60px;
+}
+
+.App__head span:last-child {
+  width: 85px;
+}
+
+.App__body {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
