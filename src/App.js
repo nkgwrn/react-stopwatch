@@ -1,7 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
+import MeasurementButton from "./components/MeasurementButton";
 
 function App() {
-  return <div className="App"></div>;
+  const [time, setTime] = useState(0);
+  const [stopWatchId, setStopWatchId] = useState(null);
+
+  const countUp = () => {
+    setTime((time) => time + 1);
+  };
+
+  const startClick = () => {
+    setStopWatchId(setInterval(countUp, 1000));
+  };
+
+  const stopClick = () => {
+    setStopWatchId(clearInterval(stopWatchId));
+  };
+
+  const resetClick = () => {
+    setTime(0);
+  };
+
+  return (
+    <div className="App">
+      <div>
+        <p>{time}</p>
+      </div>
+      <div>
+        <MeasurementButton onClick={resetClick} value={"Reset"} />
+        <MeasurementButton onClick={startClick} value={"Start"} />
+        <MeasurementButton onClick={stopClick} value={"Stop"} />
+      </div>
+    </div>
+  );
 }
 
 export default App;
