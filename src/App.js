@@ -9,31 +9,24 @@ function App() {
   const [seconds, setSeconds] = useState("00");
   const [milliseconds, setMilliseconds] = useState("000");
 
-  const [isStartActive, setIsStartActive] = useState(true);
-  const [isStopActive, setIsStopActive] = useState(false);
-  const [isResetActive, setIsResetActive] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
+  const [isReset, setIsReset] = useState(true);
 
   const [diffTime, setDiffTime] = useState(0);
   const [countTime, setCountTime] = useState(0);
-
+  const [lapTime, setLapTime] = useState([]);
   let startTime;
 
   const countUp = () => {
-    // const countUpDate = new Date(Date.now() - startTime + diffTime);
     const countUpDate = Date.now() - startTime + diffTime;
-
-    // const upDateMinutes = String(countUpDate.getMinutes()).padStart(2, "0");
-    // const upDateSeconds = String(countUpDate.getSeconds()).padStart(2, "0");
-    // const upDateMilliseconds = String(countUpDate.getMilliseconds()).padStart(
-    //   3,
-    //   "0"
-    // );
-
-    var upDateMinutes = String(
-      Math.floor(countUpDate / 60000)).padStart(2, "0");
+    var upDateMinutes = String(Math.floor(countUpDate / 60000)).padStart(
+      2,
+      "0"
+    );
     var upDateSeconds = String(
-      Math.floor((countUpDate % 60000) / 1000)).padStart(2, "0")
-    var upDateMilliseconds = String((countUpDate % 1000)).padStart(3, "0")
+      Math.floor((countUpDate % 60000) / 1000)
+    ).padStart(2, "0");
+    var upDateMilliseconds = String(countUpDate % 1000).padStart(3, "0");
 
     setCountTime(countUpDate);
     setMinutes(upDateMinutes);
@@ -41,28 +34,36 @@ function App() {
     setMilliseconds(upDateMilliseconds);
   };
 
-  const stopWatchClick = () => {
+  const timerClick = () => {
     if (stopWatchId === null) {
+      // Click "Start"
       startTime = new Date();
       setStopWatchId(setInterval(countUp, 33));
-      setIsStartActive(false);
-      setIsStopActive(true);
-      setIsResetActive(false);
+      setIsRunning(true);
+      setIsReset(false);
     } else {
+      // Click "Stop"
       clearInterval(stopWatchId);
       setStopWatchId(null);
-      setIsStartActive(true);
-      setIsStopActive(false);
-      setIsResetActive(true);
+      setIsRunning(false);
+      setIsReset(true);
       setDiffTime(countTime);
     }
   };
 
-  const resetClick = () => {
-    setMinutes("00");
-    setSeconds("00");
-    setMilliseconds("000");
-    setDiffTime(0);
+  const toolClick = () => {
+    if (isReset) {
+      // Click "Reset"
+      setMinutes("00");
+      setSeconds("00");
+      setMilliseconds("000");
+      setDiffTime(0);
+      setLapTime([]);
+    } else {
+      // Click "Lap"
+      const lapTimeText = minutes + ":" + seconds + "." + milliseconds;
+      setLapTime((lapTime) => [...lapTime, lapTimeText]);
+    }
   };
 
   return (
@@ -74,21 +75,23 @@ function App() {
         </p>
       </div>
       <div className="App__body">
-        <MeasurementButton
-          onClick={resetClick}
-          value={"Reset"}
-          isActive={isResetActive}
-        />
-        <MeasurementButton
-          onClick={stopWatchClick}
-          value={"Start"}
-          isActive={isStartActive}
-        />
-        <MeasurementButton
-          onClick={stopWatchClick}
-          value={"Stop"}
-          isActive={isStopActive}
-        />
+        <div className="App__btn">
+          <MeasurementButton
+            onClick={toolClick}
+            value={isReset ? "Reset" : "Lap"}
+            isReset={isReset}
+          />
+          <MeasurementButton
+            onClick={timerClick}
+            value={isRunning ? "Stop" : "Start"}
+            isActive={isRunning}
+          />
+        </div>
+        <ul className="App__lap">
+          {lapTime.map((lapTimeItem, index) => (
+            <li key={index}>{lapTimeItem}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );
