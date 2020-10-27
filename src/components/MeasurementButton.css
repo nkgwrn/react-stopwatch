@@ -6,9 +6,8 @@ button {
   padding: 10px 20px;
   border-radius: 5px;
   font-weight: bold;
-}
-
-button.is-active {
   opacity: 1;
   pointer-events: auto;
+  min-width: 85px;
+  text-align: center;
 }
