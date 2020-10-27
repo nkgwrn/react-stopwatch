@@ -3,25 +3,39 @@ import MeasurementButton from "./components/MeasurementButton";
 import "./App.css";
 
 function App() {
+  const [stopWatchId, setStopWatchId] = useState(null);
+
   const [minutes, setMinutes] = useState("00");
   const [seconds, setSeconds] = useState("00");
   const [milliseconds, setMilliseconds] = useState("000");
-
-  const [stopWatchId, setStopWatchId] = useState(null);
 
   const [isStartActive, setIsStartActive] = useState(true);
   const [isStopActive, setIsStopActive] = useState(false);
   const [isResetActive, setIsResetActive] = useState(false);
 
+  const [diffTime, setDiffTime] = useState(0);
+  const [countTime, setCountTime] = useState(0);
+
   let startTime;
 
   const countUp = () => {
-    const d = new Date(Date.now() - startTime);
+    // const countUpDate = new Date(Date.now() - startTime + diffTime);
+    const countUpDate = Date.now() - startTime + diffTime;
 
-    const upDateMinutes = String(d.getMinutes()).padStart(2, "0");
-    const upDateSeconds = String(d.getSeconds()).padStart(2, "0");
-    const upDateMilliseconds = String(d.getMilliseconds()).padStart(3, "0");
+    // const upDateMinutes = String(countUpDate.getMinutes()).padStart(2, "0");
+    // const upDateSeconds = String(countUpDate.getSeconds()).padStart(2, "0");
+    // const upDateMilliseconds = String(countUpDate.getMilliseconds()).padStart(
+    //   3,
+    //   "0"
+    // );
 
+    var upDateMinutes = String(
+      Math.floor(countUpDate / 60000)).padStart(2, "0");
+    var upDateSeconds = String(
+      Math.floor((countUpDate % 60000) / 1000)).padStart(2, "0")
+    var upDateMilliseconds = String((countUpDate % 1000)).padStart(3, "0")
+
+    setCountTime(countUpDate);
     setMinutes(upDateMinutes);
     setSeconds(upDateSeconds);
     setMilliseconds(upDateMilliseconds);
@@ -40,6 +54,7 @@ function App() {
       setIsStartActive(true);
       setIsStopActive(false);
       setIsResetActive(true);
+      setDiffTime(countTime);
     }
   };
 
@@ -47,13 +62,14 @@ function App() {
     setMinutes("00");
     setSeconds("00");
     setMilliseconds("000");
+    setDiffTime(0);
   };
 
   return (
     <div className="App">
       <div className="App__head">
         <p>
-          <span>{minutes}</span>:<span>{seconds}</span>:
+          <span>{minutes}</span>:<span>{seconds}</span>.
           <span>{milliseconds}</span>
         </p>
       </div>
