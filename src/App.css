@@ -1,13 +1,23 @@
 body {
   counter-reset: number 0;
+  height: 100vh;
+}
+
+#root {
+  height: 100%;
+  position: relative;
 }
 
 .App {
   width: 400px;
-  margin: 0 auto;
   background-color: #445680;
   color: #ffe0cb;
   padding: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
 }
 
 .App__head {
