@@ -18,31 +18,24 @@ function App() {
   let startTime;
 
   const countUp = () => {
-    const countUpDate = Date.now() - startTime + diffTime;
-    var upDateMinutes = String(Math.floor(countUpDate / 60000)).padStart(
-      2,
-      "0"
-    );
-    var upDateSeconds = String(
-      Math.floor((countUpDate % 60000) / 1000)
-    ).padStart(2, "0");
-    var upDateMilliseconds = String(countUpDate % 1000).padStart(3, "0");
+    const countUpTime = Date.now() - startTime + diffTime;
+    const upDateMinutes = String(Math.floor(countUpTime / 60000)).padStart(2,"0");
+    const upDateSeconds = String(Math.floor((countUpTime % 60000) / 1000)).padStart(2, "0");
+    const upDateMilliseconds = String(countUpTime % 1000).padStart(3, "0");
 
-    setCountTime(countUpDate);
+    setCountTime(countUpTime);
     setMinutes(upDateMinutes);
     setSeconds(upDateSeconds);
     setMilliseconds(upDateMilliseconds);
   };
 
   const timerClick = () => {
-    if (stopWatchId === null) {
-      // Click "Start"
+    if (stopWatchId === null) { // Click "Start"
       startTime = new Date();
       setStopWatchId(setInterval(countUp, 33));
       setIsRunning(true);
       setIsReset(false);
-    } else {
-      // Click "Stop"
+    } else { // Click "Stop"
       clearInterval(stopWatchId);
       setStopWatchId(null);
       setIsRunning(false);
@@ -52,15 +45,13 @@ function App() {
   };
 
   const toolClick = () => {
-    if (isReset) {
-      // Click "Reset"
+    if (isReset) { // Click "Reset"
       setMinutes("00");
       setSeconds("00");
       setMilliseconds("000");
       setDiffTime(0);
       setLapTime([]);
-    } else {
-      // Click "Lap"
+    } else { // Click "Lap"
       const lapTimeText = minutes + ":" + seconds + "." + milliseconds;
       setLapTime((lapTime) => [...lapTime, lapTimeText]);
     }
