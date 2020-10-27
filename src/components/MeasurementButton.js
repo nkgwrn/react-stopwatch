@@ -1,8 +1,8 @@
 import React from "react";
 import "./MeasurementButton.css";
 
-const MeasurementButton = ({ onClick, value, isActive }) => (
-  <button onClick={onClick} className={isActive ? "is-active" : ""}>
+const MeasurementButton = ({ onClick, value }) => (
+  <button onClick={onClick} >
     {value}
   </button>
 );
