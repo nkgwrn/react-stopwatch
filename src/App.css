@@ -1,5 +1,9 @@
+body {
+  counter-reset: number 0;
+}
+
 .App {
-  width: 500px;
+  width: 400px;
   margin: 0 auto;
   background-color: #445680;
   color: #ffe0cb;
@@ -22,7 +26,29 @@
 }
 
 .App__body {
+  margin-top: 30px;
+}
+
+.App__btn {
   display: flex;
   justify-content: space-between;
-  margin-top: 30px;
+}
+
+.App__lap {
+  padding-top: 30px;
+}
+
+.App__lap li {
+  font-weight: bold;
+}
+
+.App__lap li ~ li {
+  margin-top: 5px;
+}
+
+.App__lap li::before {
+  counter-increment: number 1;
+  content: "Lap" counter(number) ": ";
+  display: inline-block;
+  min-width: 60px;
 }
