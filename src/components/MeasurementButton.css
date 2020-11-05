@@ -10,4 +10,9 @@ button {
   pointer-events: auto;
   min-width: 85px;
   text-align: center;
+  transition: all .1s ease;
+}
+
+button:hover {
+  background-color: #dec3b0;
 }
