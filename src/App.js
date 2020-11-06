@@ -32,7 +32,7 @@ function App() {
   const timerClick = () => {
     if (stopWatchId === null) { // Click "Start"
       startTime = new Date();
-      setStopWatchId(setInterval(countUp, 33));
+      setStopWatchId(setInterval(countUp, 10));
       setIsRunning(true);
       setIsReset(false);
     } else { // Click "Stop"
